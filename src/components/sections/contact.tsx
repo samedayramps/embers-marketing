@@ -2,31 +2,79 @@
 
 import { Mail, Phone } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/animated-section";
+import { FAQSection } from "@/components/ui/faq-section";
+import { Shield, Clock, ThumbsUp } from "lucide-react";
+import { Section } from "@/components/ui/section";
+import { typography } from "@/styles/typography";
+
+const delays = ["delay-0", "delay-100", "delay-200"] as const;
+
+const riskEliminators = [
+  {
+    icon: Clock,
+    title: "Just 15 Minutes",
+    description: "A quick, focused chat to explore how we can help."
+  },
+  {
+    icon: Shield,
+    title: "No Obligation",
+    description: "Free consultation with zero pressure to commit."
+  },
+  {
+    icon: ThumbsUp,
+    title: "Money-Back Guarantee",
+    description: "Not happy with our work? Get a full refund."
+  }
+];
 
 export function ContactSection() {
   return (
-    <section id="contact" className="relative">
-      <div className="container py-24 sm:py-32">
-        <AnimatedSection className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-          <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-            Ready to Ignite Your Business?
-          </h2>
-          <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-            It all starts with a quick, no-pressure conversation. Let&apos;s see how our holistic marketing approach—from messaging and visuals to websites and beyond—can fan the ember of your business into a bright, lasting flame.
-          </p>
-        </AnimatedSection>
+    <Section id="contact">
+      <AnimatedSection className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+        <h2 className={typography.h2}>
+          Ready to Ignite Your Business?
+        </h2>
+        <p className={typography.subtitle}>
+          It all starts with a quick, no-pressure conversation. Let&apos;s see how our holistic marketing approach can fan the ember of your business into a bright, lasting flame.
+        </p>
+      </AnimatedSection>
+
+      <div className="mx-auto grid max-w-[680px] gap-8">
+        <div className="grid gap-8 md:grid-cols-3">
+          {riskEliminators.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <AnimatedSection
+                key={index}
+                animation="fade-up"
+                delay={delays[index]}
+                className="text-center"
+              >
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-red-500 shadow-lg shadow-orange-500/25">
+                  <Icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className={typography.h3}>
+                  {item.title}
+                </h3>
+                <p className={typography.body.sm}>
+                  {item.description}
+                </p>
+              </AnimatedSection>
+            );
+          })}
+        </div>
 
         <AnimatedSection 
-          className="mx-auto mt-16 max-w-2xl"
+          className="mx-auto max-w-[680px]"
           animation="fade-up"
           delay="delay-100"
         >
           <div className="mb-8 text-center">
-            <h3 className="text-xl font-bold">Let&apos;s Talk About Your Business</h3>
-            <p className="mt-2 text-muted-foreground">
+            <h3 className={typography.h3}>Let&apos;s Talk About Your Business</h3>
+            <p className={typography.body.lg}>
               Schedule Your Free 30-Minute Chat
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className={typography.body.base}>
               No obligations—just a simple conversation about how Embers Marketing can help you grow.
             </p>
           </div>
@@ -34,7 +82,7 @@ export function ContactSection() {
           <form className="grid gap-8">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="grid gap-2">
-                <label htmlFor="name" className="text-sm font-medium leading-none">
+                <label htmlFor="name" className={typography.body.sm}>
                   Your Name
                 </label>
                 <input
@@ -46,7 +94,7 @@ export function ContactSection() {
                 />
               </div>
               <div className="grid gap-2">
-                <label htmlFor="email" className="text-sm font-medium leading-none">
+                <label htmlFor="email" className={typography.body.sm}>
                   Your Email
                 </label>
                 <input
@@ -59,7 +107,7 @@ export function ContactSection() {
               </div>
             </div>
             <div className="grid gap-2">
-              <label htmlFor="message" className="text-sm font-medium leading-none">
+              <label htmlFor="message" className={typography.body.sm}>
                 Tell us about your business (optional)
               </label>
               <textarea
@@ -77,16 +125,16 @@ export function ContactSection() {
             </button>
           </form>
 
-          <div className="mt-16 flex flex-col gap-8 sm:flex-row sm:gap-16">
+          <div className="mt-16 flex flex-col gap-8 sm:flex-row sm:justify-center">
             <AnimatedSection 
               animation="fade-right"
               delay="delay-200"
-              className="flex items-center gap-3"
+              className="flex items-center justify-center gap-3"
             >
               <Mail className="h-6 w-6 text-primary" />
               <a
                 href="mailto:hello@embers.com"
-                className="text-sm hover:text-primary"
+                className={typography.link}
               >
                 hello@embers.com
               </a>
@@ -94,10 +142,10 @@ export function ContactSection() {
             <AnimatedSection 
               animation="fade-left"
               delay="delay-300"
-              className="flex items-center gap-3"
+              className="flex items-center justify-center gap-3"
             >
               <Phone className="h-6 w-6 text-primary" />
-              <a href="tel:+1234567890" className="text-sm hover:text-primary">
+              <a href="tel:+1234567890" className={typography.link}>
                 (123) 456-7890
               </a>
             </AnimatedSection>
@@ -105,15 +153,17 @@ export function ContactSection() {
         </AnimatedSection>
 
         <AnimatedSection 
-          className="mx-auto mt-16 max-w-[58rem] text-center"
+          className="mx-auto max-w-[680px] text-center"
           animation="fade-up"
           delay="delay-400"
         >
-          <p className="text-lg text-muted-foreground">
+          <p className={typography.body.lg}>
             Not ready yet? That&apos;s okay! Save our info and reach out whenever you want to spark real growth.
           </p>
         </AnimatedSection>
+
+        <FAQSection />
       </div>
-    </section>
+    </Section>
   );
 } 

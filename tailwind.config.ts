@@ -1,12 +1,15 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 const config = {
   darkMode: ["class"],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
+  prefix: "",
   theme: {
   	container: {
   		center: true,
@@ -16,6 +19,102 @@ const config = {
   		}
   	},
   	extend: {
+  		keyframes: {
+  			'gradient-shift': {
+  				'0%, 100%': {
+  					'background-size': '200% 200%',
+  					'background-position': 'left center'
+  				},
+  				'50%': {
+  					'background-size': '200% 200%',
+  					'background-position': 'right center'
+  				}
+  			},
+  			'glow': {
+  				'0%': {
+  					transform: 'scale(1)',
+  					opacity: '0.6'
+  				},
+  				'20%': {
+  					transform: 'scale(1.1)',
+  					opacity: '0.8'
+  				},
+  				'40%': {
+  					transform: 'scale(1.15)',
+  					opacity: '0.9'
+  				},
+  				'60%': {
+  					transform: 'scale(1.05)',
+  					opacity: '0.85'
+  				},
+  				'80%': {
+  					transform: 'scale(1.1)',
+  					opacity: '0.7'
+  				},
+  				'100%': {
+  					transform: 'scale(1)',
+  					opacity: '0.6'
+  				}
+  			},
+  			'flicker': {
+  				'0%': {
+  					opacity: '0.5'
+  				},
+  				'10%': {
+  					opacity: '0.7'
+  				},
+  				'20%': {
+  					opacity: '0.4'
+  				},
+  				'30%': {
+  					opacity: '0.8'
+  				},
+  				'40%': {
+  					opacity: '0.5'
+  				},
+  				'50%': {
+  					opacity: '0.9'
+  				},
+  				'60%': {
+  					opacity: '0.6'
+  				},
+  				'70%': {
+  					opacity: '0.8'
+  				},
+  				'80%': {
+  					opacity: '0.5'
+  				},
+  				'90%': {
+  					opacity: '0.7'
+  				},
+  				'100%': {
+  					opacity: '0.5'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'gradient-shift': 'gradient-shift 4s ease infinite',
+  			'glow': 'glow 3s ease-in-out infinite',
+  			'flicker': 'flicker 4s ease-in-out infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
@@ -49,45 +148,16 @@ const config = {
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
   			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		},
-  		keyframes: {
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
-  			}
-  		},
-  		animation: {
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;
 
 export default config;
